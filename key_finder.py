@@ -4,6 +4,7 @@ import requests
 import re
 from random import random as uniform
 import asyncio
+from nest_asyncio import apply
 
 
 async def get_url_data():
@@ -70,7 +71,11 @@ def get_key():
         return key
 
     info_logger.info(f'Key no longer valid. Looking for a new key...')
-    loop = asyncio.get_event_loop()
+    apply()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.get_event_loop()
     key = loop.run_until_complete(get_url_data())
 
     info_logger.info(f'Found key {key[:10]}...')

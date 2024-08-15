@@ -11,3 +11,4 @@ appwrite
 fastapi
 pydantic
 uvicorn
+nest_asyncio
