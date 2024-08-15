@@ -66,7 +66,7 @@ def main(context):
             resolution=resolution,
             guidance_scale=guidance_scale
         )
-        context.log({"generator": generator})
+        context.log("{}".format({"generator": generator}))
 
 
     return context.res.json(
