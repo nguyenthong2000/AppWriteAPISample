@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from generator import image_generator
+from .generator import image_generator
 
 app = FastAPI()
 

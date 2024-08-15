@@ -4,7 +4,6 @@ from appwrite.exception import AppwriteException
 import os
 import json
 from .generator import image_generator
-from server import app
 
 # This Appwrite function will be executed every time your function is triggered
 def main(context):

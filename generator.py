@@ -1,9 +1,9 @@
-from wordlist import MyWordlist
-from key_finder import get_key
+from .wordlist import MyWordlist
+from .key_finder import get_key
 import random
 import requests
-from styles import styles
-from logging_settings import network_logger, info_logger
+from .styles import styles
+from .logging_settings import network_logger, info_logger
 from urllib.parse import quote, urlencode
 from time import sleep
 from os import makedirs
