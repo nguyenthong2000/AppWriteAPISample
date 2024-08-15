@@ -1,4 +1,4 @@
-from logging_settings import network_logger, info_logger
+from .logging_settings import network_logger, info_logger
 from playwright.async_api import async_playwright
 import requests
 import re
