@@ -17,7 +17,6 @@ def main(context):
     #     .set_key(context.req.headers["x-appwrite-key"])
     # )
     # users = Users(client)
-
     context.log(context.req.body_raw)  # Raw request body, contains request data
     context.log(json.dumps(context.req.body))  # Object from parsed JSON request body, otherwise string
     context.log(json.dumps(context.req.headers))  # String key-value pairs of all request headers, keys are lowercase
