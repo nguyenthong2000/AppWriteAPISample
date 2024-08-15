@@ -3,6 +3,8 @@ from appwrite.services.users import Users
 from appwrite.exception import AppwriteException
 import os
 import json
+from generator import image_generator
+from server import app
 
 # This Appwrite function will be executed every time your function is triggered
 def main(context):
@@ -33,6 +35,42 @@ def main(context):
         # Use res object to respond with text(), json(), or binary()
         # Don't forget to return a response!
         return context.res.text("Pong")
+
+    if context.req.path == "imagegenerate" and context.req.method == "POST":
+        json_data = json.loads(context.req.body_raw)
+
+        base_filename = json_data['base_filename']
+        amount = json_data['amount']
+        prompt = json_data['prompt']
+        prompt_size = json_data['prompt_size']
+        negative_prompt = json_data['negative_prompt']
+        style = json_data['style']
+        resolution = json_data['resolution']
+        guidance_scale = json_data['guidance_scale']
+
+        context.log("-"*10)
+        context.log(base_filename)
+        context.log(amount)
+        context.log(prompt)
+        context.log(prompt_size)
+        context.log(negative_prompt)
+        context.log(style)
+        context.log(resolution)
+        context.log(guidance_scale)
+
+        generator = image_generator(
+            base_filename=base_filename,
+            amount=amount,
+            prompt=prompt,
+            prompt_size=prompt_size,
+            negative_prompt=negative_prompt.replace(' ', ', '),
+            style=style,
+            resolution=resolution,
+            guidance_scale=guidance_scale
+        )
+
+        context.log(generator)
+
 
     return context.res.json(
         {
