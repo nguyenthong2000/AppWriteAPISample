@@ -34,9 +34,9 @@ def main(context):
         # Don't forget to return a response!
         return context.res.text("Pong")
 
-    if context.req.path == "imagegenerate" and context.req.method == "POST":
+    if context.req.path == "/imagegenerate" and context.req.method == "POST":
         json_data = json.loads(context.req.body_raw)
-
+        context.log("post imagegenerate")
         base_filename = json_data['base_filename']
         amount = json_data['amount']
         prompt = json_data['prompt']
