@@ -7,6 +7,7 @@ from .logging_settings import network_logger, info_logger
 from urllib.parse import quote, urlencode
 from time import sleep
 from os import makedirs
+import base64
 
 def encode(prompt):
     replacement_dict = {
@@ -94,16 +95,19 @@ def image_generator(
         }
         download_response = requests.get(download_url, params=download_params)
 
-        generated_dir = 'generated-pictures'
-        makedirs(generated_dir, exist_ok=True)
-
-        filename = f'{generated_dir}/{base_filename}{idx}.jpeg' if base_filename else f'{generated_dir}/{image_id}.jpeg'
-        with open(filename, 'wb') as file:
-            file.write(download_response.content)
-
-        info_logger.info(f'Created picture {idx}/{amount} ({filename=})')
-        yield {
-            'filename': filename,
-            'prompt': prompt_base,
-            'negative_prompt': negative_prompt
-        }
+        # generated_dir = 'generated-pictures'
+        # makedirs(generated_dir, exist_ok=True)
+        #
+        # filename = f'{generated_dir}/{base_filename}{idx}.jpeg' if base_filename else f'{generated_dir}/{image_id}.jpeg'
+        # with open(filename, 'wb') as file:
+        #     file.write(download_response.content)
+        #
+        # info_logger.info(f'Created picture {idx}/{amount} ({filename=})')
+        # yield {
+        #     'filename': filename,
+        #     'prompt': prompt_base,
+        #     'negative_prompt': negative_prompt
+        # }
+        base64_encoded_data = base64.b64encode(download_response.content)
+        base64_message = base64_encoded_data.decode('ascii')
+        return f"data:image/jpeg;base64,{base64_message}"
