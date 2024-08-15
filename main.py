@@ -67,7 +67,7 @@ def main(context):
             guidance_scale=guidance_scale
         )
 
-        context.log(generator)
+        context.log({"generator": generator})
 
 
     return context.res.json(
